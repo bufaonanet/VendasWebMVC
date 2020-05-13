@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using VendasWebMVC.Models;
 
-namespace VendasWebMVC.Data
+namespace VendasWebMVC.Models
 {
     public class VendasWebMVCContext : DbContext
     {
@@ -14,6 +13,10 @@ namespace VendasWebMVC.Data
         {
         }
 
-        public DbSet<VendasWebMVC.Models.Departament> Departament { get; set; }
+        public DbSet<Departament> Departament { get; set; }
+        public DbSet<Seller> Seller { get; set; }
+        public DbSet<SalesRecord> SalesRecord { get; set; }
+
+
     }
 }
