@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using VendasWebMVC.Models;
-using VendasWebMVC.Models.ViewModels;
 
 namespace VendasWebMVC.Controllers
 {
