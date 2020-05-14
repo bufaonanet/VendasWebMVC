@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using VendasWebMVC.Models;
+using VendasWebMVC.Data;
 
 namespace VendasWebMVC
 {
@@ -39,14 +40,17 @@ namespace VendasWebMVC
             services.AddDbContext<VendasWebMVCContext>(options =>
                     options.UseMySql(Configuration.GetConnectionString("VendasWebMVCContext"), builder =>
                         builder.MigrationsAssembly("VendasWebMVC")));
+
+            services.AddScoped<SeedingService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, SeedingService seeding)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                seeding.Seed();
             }
             else
             {
