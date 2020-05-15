@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using VendasWebMVC.Models;
@@ -32,7 +33,6 @@ namespace VendasWebMVC.Controllers
 
             return View(viewModel);
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(Seller seller)
@@ -40,7 +40,29 @@ namespace VendasWebMVC.Controllers
             _sellerService.Insert(seller);
             return RedirectToAction(nameof(Index));
         }
+        public IActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
+            var obj = _sellerService.FindById(id.Value);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+
+            return View(obj);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(int id)
+        {
+            _sellerService.Delete(id);
+
+            return RedirectToAction(nameof(Index));
+        }
 
     }
 }
