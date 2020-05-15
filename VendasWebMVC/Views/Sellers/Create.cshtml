@@ -1,4 +1,4 @@
-﻿@model VendasWebMVC.Models.Seller
+﻿@model VendasWebMVC.Models.ViewModels.SellerFormViewModel
 
 @{
     ViewData["Title"] = "Adicionar";
@@ -13,19 +13,24 @@
         <form asp-action="Create">
             <div class="form-group">
                 <label>Nome</label>
-                <input asp-for="Name" class="form-control" />
+                <input asp-for="Seller.Name" class="form-control" />
             </div>
             <div class="form-group">
                 <label>Email</label>
-                <input asp-for="Email" class="form-control" />
+                <input asp-for="Seller.Email" class="form-control" />
             </div>
             <div class="form-group">
                 <label>Aniversário</label>
-                <input asp-for="BirthDate" class="form-control" />
+                <input asp-for="Seller.BirthDate" class="form-control" />
             </div>
             <div class="form-group">
                 <label>Salário</label>
-                <input asp-for="BaseSalary" class="form-control" />
+                <input asp-for="Seller.BaseSalary" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Seller.DepartamentId" class="control-label"></label>
+                <select asp-for="Seller.DepartamentId" asp-items="@(new SelectList(Model.Departaments,"Id","Name"))" class="form-control">
+                </select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Salvar" class="btn btn-default" />
