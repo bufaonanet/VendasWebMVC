@@ -36,5 +36,27 @@ namespace VendasWebMVC.Services
                 .OrderByDescending(x => x.Date)
                 .ToListAsync();
         }
+
+        public async Task<List<IGrouping<Departament, SalesRecord>>> FindByDateGroupingAsync(DateTime? dateMin, DateTime? dateMax)
+        {
+            var result = from obj in _context.SalesRecord select obj;
+
+            if (dateMin.HasValue)
+            {
+                result = result.Where(x => x.Date >= dateMin.Value);
+            }
+
+            if (dateMax.HasValue)
+            {
+                result = result.Where(x => x.Date <= dateMax.Value);
+            }
+
+            return await result
+                .Include(x => x.Seller)
+                .Include(x => x.Seller.Departament)
+                .OrderByDescending(x => x.Date)
+                .GroupBy(x => x.Seller.Departament)
+                .ToListAsync();
+        }
     }
 }
